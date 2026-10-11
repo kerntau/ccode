@@ -72,20 +72,6 @@ cd ccode
 
 构建主程序和辅助工具后，在干净 Windows 环境启动 devcpp.exe，验证编辑、编译、调试、资源加载和语言切换。提交前运行 Source/CleanSource.bat 清理旧生成物，并检查 NEWS.txt 与 SECURITY.md。
 
-## 07. ENGINEERING CONTRACT // 工程协作契约
-
-- 不提交 Delphi 本地配置、编译输出或个人路径。
-- 修改组件后同步检查包依赖与资源脚本。
-- 变更调试器、编译器或文件关联功能时，必须在 Windows 中手工回归。
-- 第三方组件的许可证与来源以仓库内各目录和 COPYING.txt 为准。
-
-## 08. ROADMAP // 系统演进路线
-
-- [x] 保留 Dev-C++ IDE、VCL 组件和辅助工具源码。
-- [x] 提供资源编译及源码构建说明。
-- [ ] 补充可复现的 Windows 构建环境清单。
-- [ ] 为核心 IDE 功能增加自动化回归记录。
-
-## 09. LICENSE // 许可证
+## 07. LICENSE // 许可证
 
 许可证文本见 LICENSE 和 COPYING.txt；第三方组件遵循各自许可证。
