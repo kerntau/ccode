@@ -1,56 +1,91 @@
-# Embarcadero Dev-C++（ccode）
+<div align="center">
 
-这是 Embarcadero Dev-C++ 的源代码仓库：一个面向 Windows 的轻量级 C/C++ 集成开发环境（IDE）。项目基于 Bloodshed Dev-C++ 与 Orwell Dev-C++ 的开源工作成果，使用 MinGW 版 GCC，也可以配置 Cygwin 等工具链。
+# EMBARCADERO DEV-C++ // CCODE
 
-## 项目能力
+**面向 Windows 的 Delphi/C++ 开发环境源码。**<br>
+*Source for a lightweight Windows C/C++ IDE built with Delphi.*
 
-- C/C++ 语法高亮、代码补全和类浏览器
-- 函数列表、代码洞察与可配置的格式化工具
-- GDB 调试、GPROF 性能分析和资源文件编辑
-- 创建控制台程序、静态库和 DLL，支持项目模板
-- Makefile 生成、工具管理、打印、查找替换和多语言界面
-- 可选的 DevPak 包管理器与扩展支持
+[![GitHub](https://img.shields.io/badge/GitHub-kerntau%2Fccode-181717?style=for-the-badge&logo=github)](https://github.com/kerntau/ccode)
+[![C%2B%2B](https://img.shields.io/badge/C%2B%2B-IDE-00599C?style=for-the-badge&logo=cplusplus&logoColor=ffffff)](https://isocpp.org)
+[![Delphi](https://img.shields.io/badge/Delphi-10.4%2B-E62431?style=for-the-badge)](https://www.embarcadero.com/products/delphi)
+[![MinGW](https://img.shields.io/badge/MinGW-GCC-4EAA25?style=for-the-badge)](https://www.mingw-w64.org)
 
-该仓库主要保存 IDE 源码、资源、语言包和第三方组件；构建产物和完整安装包不随源码提交。
+</div>
 
-## 目录结构
+---
 
-| 路径 | 内容 |
-| --- | --- |
-| `Source/` | Delphi 主程序源码、窗体、编辑器、调试器、项目系统和测试 |
-| `Source/VCL/` | VCL 组件、SynEdit、SVGIconImageList 等依赖 |
-| `Source/Tools/` | ConsolePauser、便携版启动器等辅助工具 |
-| `Lang/` | 翻译文件 |
-| `Icons/`、`Fonts/` | 图标和字体资源 |
-| `AStyle/`、`ClangFormat/` | 代码格式化相关资源 |
-| `Help/` | 帮助文件 |
-| `NEWS.txt` | 历史版本变更记录 |
-| `Source/README.txt` | 更完整的 Delphi 编译和辅助工具说明 |
+## 01. PROJECT PURPOSE // 项目定位
 
-## 从源码构建（Windows）
+本仓库保存 Embarcadero Dev-C++ 的 IDE 源码、VCL 组件、资源、语言包和辅助工具。它继承 Bloodshed Dev-C++ 与 Orwell Dev-C++ 的开源工作，主程序使用 Delphi 构建，并通过 MinGW/GCC 提供 C/C++ 工具链。
 
-完整构建需要 Windows 和 Delphi 10.4 或更高版本，并准备 MinGW/GCC 运行环境。
+## 02. TECHNICAL ARCHITECTURE // 技术架构
 
-1. 在 Delphi IDE 中安装 `VCL Style - Windows10BlueWhale`。
-2. 按 `Source/README.txt` 中的顺序编译并安装这些包：
+~~~mermaid
+graph LR
+    A[Delphi VCL source] --> B[CompileResources.bat]
+    B --> C[DevCpp packages and resources]
+    C --> D[devcpp.exe]
+    E[MinGW GCC] --> D
+    F[Source Tools] --> G[ConsolePauser and portable tools]
+~~~
 
-   - `Source/VCL/DevCpp.dpk`
-   - `Source/VCL/SynEdit/Packages/Sydney/Delphi/SynEditDelphi.groupproj`
-   - `Source/VCL/ClassBrowsing/ClassBrowsing.dpk`
-   - `Source/VCL/SVGIconImageList/Packages/D10_4/SVGIconImageListGroupPackages.groupproj`
+## 03. TECHNICAL MATRIX // 技术矩阵
 
-3. 运行 `Source/CompileResources.bat` 编译资源。
-4. 在 Delphi 中打开主程序工程并编译 `devcpp.exe`。如果出现模块或资源找不到，请先确认上述包已安装且工程搜索路径正确。
-5. 提交改动或排查旧编译文件前，可运行 `Source/CleanSource.bat` 清理生成文件。
+| 模块 | 实现 | 说明 |
+| --- | --- | --- |
+| IDE | Delphi VCL | 编辑器、项目、调试和环境设置 |
+| 编译器 | MinGW/GCC | C/C++ 编译与链接 |
+| 编辑器 | SynEdit 及相关 VCL 组件 | 语法高亮和代码编辑 |
+| 格式化 | AStyle、ClangFormat | C/C++ 代码格式化 |
+| 资源 | RC、DFM、图标和字体 | Windows 界面与语言资源 |
+| 辅助工具 | ConsolePauser、portable launcher | 运行控制台程序和便携配置 |
 
-ConsolePauser、`devcppPortable.exe` 和旧版 `Packman.exe` 的构建方式也记录在 `Source/README.txt` 的“Compiling associated tools”部分。首次构建建议先只验证主程序，再按需构建这些工具。
+## 04. REPOSITORY TOPOLOGY // 源码工程拓扑
 
-## 开发提示
+~~~text
+.
+├── Source/                   # Delphi 主程序、VCL 组件和测试
+│   ├── VCL/                  # DevCpp、SynEdit 等包
+│   ├── Tools/                # 辅助工具源码
+│   ├── CompileResources.bat  # 编译资源
+│   └── README.txt            # 完整构建说明
+├── Lang/                     # 翻译文件
+├── Icons/、Fonts/             # 资源
+├── AStyle/、ClangFormat/      # 格式化组件
+├── Help/                     # 帮助
+├── NEWS.txt                  # 版本记录
+└── SECURITY.md               # 安全报告入口
+~~~
 
-- 修改语言、图标或组件资源后，请重新运行资源编译脚本。
-- 不要把本地 Delphi 配置、编译输出或个人路径提交到仓库；提交前检查 `.gitignore`。
-- 版本变化和已知问题请参考 `NEWS.txt`，安全问题请按 `SECURITY.md` 的说明报告。
+## 05. CLONE & QUICK START // 极速装配指南
 
-## 许可证与致谢
+完整编译需要 Windows、Delphi 10.4+ 和 MinGW/GCC。
 
-许可证文本见 [`LICENSE`](./LICENSE) 和 [`COPYING.txt`](./COPYING.txt)。项目沿用了 Dev-C++、SynEdit、FastMM、AStyle、Abbrevia 等开源组件；各组件的许可证和来源说明保留在仓库及对应目录中。
+~~~bash
+git clone https://github.com/kerntau/ccode.git
+cd ccode
+~~~
+
+随后按 Source/README.txt 操作：安装 VCL Style，编译 DevCpp.dpk、SynEdit、ClassBrowsing 和 SVGIconImageList 包，运行 Source/CompileResources.bat，再打开主程序工程。Windows Delphi 工程不能用 npm 或 Linux 工具链替代。
+
+## 06. DEPLOYMENT & VERIFICATION // 部署与验证
+
+构建主程序和辅助工具后，在干净 Windows 环境启动 devcpp.exe，验证编辑、编译、调试、资源加载和语言切换。提交前运行 Source/CleanSource.bat 清理旧生成物，并检查 NEWS.txt 与 SECURITY.md。
+
+## 07. ENGINEERING CONTRACT // 工程协作契约
+
+- 不提交 Delphi 本地配置、编译输出或个人路径。
+- 修改组件后同步检查包依赖与资源脚本。
+- 变更调试器、编译器或文件关联功能时，必须在 Windows 中手工回归。
+- 第三方组件的许可证与来源以仓库内各目录和 COPYING.txt 为准。
+
+## 08. ROADMAP // 系统演进路线
+
+- [x] 保留 Dev-C++ IDE、VCL 组件和辅助工具源码。
+- [x] 提供资源编译及源码构建说明。
+- [ ] 补充可复现的 Windows 构建环境清单。
+- [ ] 为核心 IDE 功能增加自动化回归记录。
+
+## 09. LICENSE // 许可证
+
+许可证文本见 LICENSE 和 COPYING.txt；第三方组件遵循各自许可证。
